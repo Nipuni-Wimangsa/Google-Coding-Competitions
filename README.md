@@ -1,8 +1,7 @@
-# KickStart
-My solutions to Google Kick Start previous competitions
+# Google Coding Competitions
+My solutions to Google Competitions
 
-<h2> 2020 Competition </h2>
-
+<h2> Kick Start 2020 </h2>
 <table>
 
 <tr>
