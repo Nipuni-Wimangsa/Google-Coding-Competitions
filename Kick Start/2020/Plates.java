@@ -37,13 +37,19 @@ public class Solution {
 
     private static int solve(int[][] array, int dP, int nP) {
         int summation = 0;
+	int jValue = 0;
         int temp;
+	    
+	if(dP > nP){
+            jValue = dP - nP;
+        }
+        else jValue = 1;
 
         for (int i = 0; i < (array.length) - 1; i++) {
-            for (int j = dP - nP; j < dP; j++) {
+            for (int j = jValue; j <= nP; j++) {
                 for (int k = 1; k < array.length; k++) {
 
-                    if((dP - j) >= (dP - nP)){
+                    if(dP >= j){
                         temp = sum(array, i, j) + sum(array, k, dP - j);
                         if (temp > summation) {
                             summation = temp;
