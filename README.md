@@ -14,4 +14,9 @@ My solutions to Google Competitions
 <td><a href = "https://github.com/Nipuni-Wimangsa/Google-Coding-Competitions/blob/main/Kick%20Start/2020/Allocation.java">Java</a></td>
 </tr>
 
+<tr>
+<td><a href = "https://codingcompetitions.withgoogle.com/kickstart/round/000000000019ffc7/00000000001d40bb">Plates</a></td>
+<td><a href = "https://github.com/Nipuni-Wimangsa/Google-Coding-Competitions/blob/main/Kick%20Start/2020/Plates.java">Java</a></td>
+</tr>
+
 </table>
