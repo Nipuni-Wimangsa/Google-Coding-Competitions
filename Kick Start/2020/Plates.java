@@ -1,65 +1,49 @@
 import java.util.Scanner;
 
 public class Solution {
-	public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        int t = input.nextInt();
+	static Scanner input = new Scanner(System.in);
 
-        for(int i = 1; i <= t; i++){
-            int nS = input.nextInt();
-            int nP = input.nextInt();
-            int dP = input.nextInt();
+    public static void main(String[] args) {
+        byte t = input.nextByte();
 
-            int[][] array = new int[nS][nP];
+        for(int i = 1; i <= t; i++) {
+            byte stacks = input.nextByte();
+            byte plates = input.nextByte();
+            short dPlates = input.nextShort();
 
-            for(int j = 0; j < nS; j++){
-                for(int k = 0; k < nP; k++){
-                   array[j][k] = input.nextInt();
-                }
-            }
-
-            int beautySum = solve(array, dP, nP);
-
-            System.out.printf("Case #%d: %d\n", i, beautySum);
-
+            solution(stacks, plates, dPlates);
         }
+
+
     }
 
-    private static int sum(int[][] array, int sN, int nP){
-        int sum = 0;
+    private static int solution(byte stacks, byte plates, short dPlates) {
+        byte n = stacks;
+        byte k = plates;
+        short p = dPlates;
 
-        for(int i = 0; i < nP; i++){
-            sum += array[sN][i];
-        }
+        byte[][] array = new byte[n][k];
 
-        return sum;
-    }
-
-    private static int solve(int[][] array, int dP, int nP) {
-        int summation = 0;
-	int jValue = 0;
-        int temp;
-	    
-	if(dP > nP){
-            jValue = dP - nP;
-        }
-        else jValue = 1;
-
-        for (int i = 0; i < (array.length) - 1; i++) {
-            for (int j = jValue; j <= nP; j++) {
-                for (int k = 1; k < array.length; k++) {
-
-                    if(dP >= j){
-                        temp = sum(array, i, j) + sum(array, k, dP - j);
-                        if (temp > summation) {
-                            summation = temp;
-                        }
-                    }
-
-                }
+        for(byte i = 0; i < n; i++) {
+            for(byte j = 0; j < k; j++) {
+                array[i][j] = input.nextByte();
             }
         }
 
-        return summation;
+        int[][] sum = new int[n][k+1];
+
+        for(int i = 0; i < n; i++) {
+            int summation = 0;
+
+            for(int j = 0; j < k; j++) {
+                summation += array[i][j];
+                sum[i][j+1] = summation;
+            }
+        }
+
+
+
+        return 0;
     }
+
 }
