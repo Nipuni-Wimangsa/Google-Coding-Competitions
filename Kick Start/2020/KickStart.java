@@ -19,17 +19,17 @@ public class Solution {
 
         char[] strArray = str.toCharArray();
         int count = 0;
+        int answer = 0;
 
         for(int i = 0; i <= strArray.length - 5; i++) {
             if(str.substring(i, i+4).equals("KICK")) {
-
-               for(int j = i+4; j <= strArray.length - 5; j++) {
-                   if(str.substring(j, j+5).equals("START")) {
-                       count++;
-                   }
-               }
+                count++;
+            }
+            
+            if(str.substring(i, i+5).equals("START")) {
+                answer += count;
             }
         }
-        return count;
+        return answer;
     }
 }
