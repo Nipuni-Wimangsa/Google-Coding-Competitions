@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Solution {
@@ -7,28 +8,57 @@ public class Solution {
         byte t = input.nextByte();
 
         for(int i = 1; i <= t; i++) {
-            int l = input.nextInt();
-            int r = input.nextInt();
+            long l = input.nextLong();
+            long r = input.nextLong();
 
-            int output = calculatingBoringNumbers(l,r);
+            long output = boringNumbersCalculate(l,r);
             System.out.print("Case #" + i + ": " + output + "\n");
         }
     }
 
-    public static int calculatingBoringNumbers(int left, int right) {
-        int[] numbers = new int[right - left + 1];
-        int count = 0;
+    public static long boringNumbersCalculate(long left, long right) {
+        long rightSum = 0;
+        long leftSum = 0;
 
-        for(int i = 0; i < numbers.length; i++) {
-            numbers[i] = left++;
+        // Calculating boring numbers from 1 to right -> [1,R]
+        for(long i = 1; i <= right; i = i*10) {
+            if(i*10 - 1 <= right) {
+                long x = (i/10) + 1;
+                double result = Math.pow(5, x);
+                rightSum += (long) result;
+            }
+            else {
+                rightSum += smallInterval(i, right);
+            }
         }
 
-        for(int i = 0; i < numbers.length; i++) {
-            String number = Integer.toString(numbers[i]);
+        // Calculating boring numbers from 1 to Left -> [1,L-1]
+        for(long i = 1; i <= left-1; i = i*10) {
+            if(i*10 - 1 <= left-1) {
+                long x = (i/10) + 1;
+                double result = Math.pow(5, x);
+                leftSum += (long) result;
+            }
+            else {
+                leftSum += smallInterval(i, left-1);
+            }
+        }
+
+        return rightSum - leftSum;
+    }
+
+    public static int smallInterval(long left, long right) {
+        ArrayList<Long> numbers = new ArrayList<>();
+        int count = 0;
+
+        for(long i = left; i <= right; i++)
+            numbers.add(left++);
+
+        for(int i = 0; i < numbers.size(); i++) {
+            String number = Long.toString(numbers.get(i));
             char[] list = number.toCharArray();
 
             int counter = 0;
-
 
             for(int j = 1; j <= number.length(); j++) {
                 int item = Character.getNumericValue(list[j-1]);
@@ -47,5 +77,6 @@ public class Solution {
 
         return count;
     }
+
 
 }
