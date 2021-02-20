@@ -1,86 +1,52 @@
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Solution {
-    static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
         byte t = input.nextByte();
 
-        for(byte i = 1; i <= t; i++) {
-            int n = input.nextInt();
-            long x = input.nextInt();
+        for(int testCase = 1; testCase <= t; testCase++) {
+            long n = input.nextLong();
+            long x = input.nextLong();
 
-            long[] array = new long[n];
+            Queue<Long> atmQueue = new ArrayDeque<>();
+            Queue<Long> numbers = new ArrayDeque<>();
 
-            for(int j = 0; j < n; j++) {
-                array[j] = input.nextLong();
+            for (long i = 1; i <= n; i++) {
+                atmQueue.add(input.nextLong());
+                numbers.add(i);
             }
 
-            int[] answer = AtmQueue(array, x);
-            System.out.printf("Case #%d: ", i);
+            Queue<Long> output = new ArrayDeque<>();
 
-            for(int j = 0; j < n; j++) {
-                System.out.print(answer[j]);
-                if(j != n-1){
-                    System.out.print(" ");
+            while (!atmQueue.isEmpty()) {
+                if(atmQueue.peek() <= x) {
+                    atmQueue.remove();
+                    output.add(numbers.peek());
+                    numbers.remove();
                 }
                 else {
-                    System.out.print("\n");
+                    long amount = atmQueue.peek();
+                    long number = numbers.peek();
+                    atmQueue.remove();
+                    numbers.remove();
+                    atmQueue.add(amount-x);
+                    numbers.add(number);
                 }
             }
 
-        }
+            System.out.print("Case #" + testCase + ":");
 
-    }
-
-    public static int[] AtmQueue(long[] array, long x) {
-        int n = array.length;
-
-        long[] xRemainder = new long[n];
-        int[] answer = new int[n];
-
-        for(int i = 0; i < n; i++) {
-
-            if(x == 1){
-                xRemainder = array;
-                break;
+            for(int i = 1; i <= n; i++) {
+                if(!output.isEmpty()) System.out.print(" ");
+                System.out.print(output.peek());
+                output.remove();
             }
-            
-            else {
-                if(array[i] % x == 0) {
-                    xRemainder[i] = 1;
-                }
-                else {
-                    xRemainder[i] = array[i]/x + 1;
-                }
-            }
+
+            System.out.println();
         }
-
-        for(int i = 0; i < n; i++) {
-            answer[i] = i+1;
-        }
-
-        for(int i = 0; i <= n-2; i++) {
-            for(int j = i+1; j <= n-1; j++) {
-
-                if(xRemainder[i] > xRemainder[j]) {
-                    long temp1 = xRemainder[i];
-                    xRemainder[i] = xRemainder[j];
-                    xRemainder[j] = temp1;
-
-                    int temp2 = answer[i];
-                    answer[i] = answer[j];
-                    answer[j] = temp2;
-                }
-
-                if((xRemainder[i] == xRemainder[j]) && (answer[i] > answer[j])) {
-                    int temp3 = answer[i];
-                    answer[i] = answer[j];
-                    answer[j] = temp3;
-                }
-            }
-        }
-
-        return answer;
     }
 }
